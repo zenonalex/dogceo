@@ -14,8 +14,8 @@ abstract class _DataDogsByBreed with Store {
   List<Dogs> dogs = [];
   @observable
   bool isLoading = true;
-  //List<Dogs> get dogs => [..._dogs];
 
+  //Carrega fotos de 10 em 10
   @action
   Future<void> loadDogs(breed) async {
     final response =

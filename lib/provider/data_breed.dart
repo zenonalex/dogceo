@@ -12,7 +12,6 @@ abstract class _DataBreed with Store {
 
   @observable
   List<Breed> breeds = [];
-  // List<Breed> get breeds => [..._breeds];
   @observable
   bool isLoading = true;
 
@@ -22,7 +21,6 @@ abstract class _DataBreed with Store {
     Map<String, dynamic> body = json.decode(response.body);
     Map<String, dynamic> data = body['message'];
 
-    // print(data);
     if (data != null) {
       data.forEach((key, value) {
         breeds.add(Breed(name: key, subBreed: value));

@@ -11,18 +11,6 @@ class BreedScreen extends StatefulWidget {
 
 class _BreedScreenState extends State<BreedScreen> {
   final _breeds = DataBreed();
-  // List<Breed> listedBreeds = [];
-  // bool isLoading = true;
-
-  // @override
-  // void initState() {
-  //   _breeds.loadBreed().then((value) {
-  //     listedBreeds = _breeds.breeds;
-  //     isLoading = false;
-  //     setState(() {});
-  //   });
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
