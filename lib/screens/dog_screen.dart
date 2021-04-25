@@ -51,16 +51,29 @@ class _DogScreenState extends State<DogScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: Observer(
-        builder: (_) => dog.isLoading
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                controller: _scrollController,
-                itemCount: _finalList.length,
-                itemBuilder: (ctx, index) {
-                  return ListTileDogs(url: _finalList[index].url);
-                },
-              ),
-      ),
+          builder: (_) => dog.isLoading
+              ? Center(
+                  child: dog.isStatusOk
+                      ? CircularProgressIndicator()
+                      : AlertDialog(
+                          title: Text(
+                              'Falha ao carregar lista. Verifique a sua conexão'),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () {
+                                  initState();
+                                },
+                                child: Text('Tentar novamente'))
+                          ],
+                        ),
+                )
+              : ListView.builder(
+                  controller: _scrollController,
+                  itemCount: _finalList.length,
+                  itemBuilder: (ctx, index) {
+                    return ListTileDogs(url: _finalList[index].url);
+                  },
+                )),
     );
   }
 }

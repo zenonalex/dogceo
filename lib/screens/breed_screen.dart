@@ -16,12 +16,26 @@ class _BreedScreenState extends State<BreedScreen> {
   Widget build(BuildContext context) {
     _breeds.loadBreed();
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Raças'),
-        ),
-        body: Observer(
+      appBar: AppBar(
+        title: Text('Raças'),
+      ),
+      body: Observer(
           builder: (_) => _breeds.isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? Center(
+                  child: _breeds.isStatusOk
+                      ? CircularProgressIndicator()
+                      : AlertDialog(
+                          title: Text(
+                              'Falha ao carregar lista. Verifique a sua conexão'),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () {
+                                  _breeds.loadBreed();
+                                },
+                                child: Text('Tentar novamente'))
+                          ],
+                        ),
+                )
               : Center(
                   child: ListView.builder(
                     itemCount: _breeds.breeds.length,
@@ -29,7 +43,7 @@ class _BreedScreenState extends State<BreedScreen> {
                       return ListTileBreed(title: _breeds.breeds[index].name);
                     },
                   ),
-                ),
-        ));
+                )),
+    );
   }
 }

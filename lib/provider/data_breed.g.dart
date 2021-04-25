@@ -39,6 +39,21 @@ mixin _$DataBreed on _DataBreed, Store {
     });
   }
 
+  final _$isStatusOkAtom = Atom(name: '_DataBreed.isStatusOk');
+
+  @override
+  bool get isStatusOk {
+    _$isStatusOkAtom.reportRead();
+    return super.isStatusOk;
+  }
+
+  @override
+  set isStatusOk(bool value) {
+    _$isStatusOkAtom.reportWrite(value, super.isStatusOk, () {
+      super.isStatusOk = value;
+    });
+  }
+
   final _$loadBreedAsyncAction = AsyncAction('_DataBreed.loadBreed');
 
   @override
@@ -50,7 +65,8 @@ mixin _$DataBreed on _DataBreed, Store {
   String toString() {
     return '''
 breeds: ${breeds},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+isStatusOk: ${isStatusOk}
     ''';
   }
 }

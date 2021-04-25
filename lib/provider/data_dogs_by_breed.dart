@@ -14,26 +14,36 @@ abstract class _DataDogsByBreed with Store {
   List<Dogs> dogs = [];
   @observable
   bool isLoading = true;
+  @observable
+  bool isStatusOk = true;
 
   //Carrega fotos de 10 em 10
   @action
   Future<void> loadDogs(breed) async {
-    final response =
-        await http.get(Uri.parse("$_dogsUrl/$breed/images/random/10"));
-    Map<String, dynamic> body = json.decode(response.body);
-    Map<String, dynamic> data = body;
-    List<String> dataDog = List<String>.from(data['message']);
-    print(dataDog);
-    dogs.clear();
+    try {
+      final response =
+          await http.get(Uri.parse("$_dogsUrl/$breed/images/random/10"));
+      Map<String, dynamic> body = json.decode(response.body);
+      Map<String, dynamic> data = body;
+      List<String> dataDog = List<String>.from(data['message']);
+      print(dataDog);
 
-    if (data != null) {
-      dataDog.forEach((value) {
-        dogs.add(Dogs(url: value));
-      });
-    }
+      dogs.clear();
 
-    if (dogs != []) {
-      isLoading = false;
+      if (data != null) {
+        dataDog.forEach((value) {
+          dogs.add(Dogs(url: value));
+        });
+      }
+
+      if (dogs != []) {
+        isLoading = false;
+        isStatusOk = false;
+      }
+    } catch (e) {
+      print('Erro de conexão');
+      isStatusOk = false;
+      print(isStatusOk);
     }
 
     return Future.value();

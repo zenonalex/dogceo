@@ -39,6 +39,21 @@ mixin _$DataDogsByBreed on _DataDogsByBreed, Store {
     });
   }
 
+  final _$isStatusOkAtom = Atom(name: '_DataDogsByBreed.isStatusOk');
+
+  @override
+  bool get isStatusOk {
+    _$isStatusOkAtom.reportRead();
+    return super.isStatusOk;
+  }
+
+  @override
+  set isStatusOk(bool value) {
+    _$isStatusOkAtom.reportWrite(value, super.isStatusOk, () {
+      super.isStatusOk = value;
+    });
+  }
+
   final _$loadDogsAsyncAction = AsyncAction('_DataDogsByBreed.loadDogs');
 
   @override
@@ -50,7 +65,8 @@ mixin _$DataDogsByBreed on _DataDogsByBreed, Store {
   String toString() {
     return '''
 dogs: ${dogs},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+isStatusOk: ${isStatusOk}
     ''';
   }
 }

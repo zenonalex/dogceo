@@ -9,11 +9,11 @@ class ListTileDogs extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 100,
+        height: 200,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(url),
-            fit: BoxFit.fitHeight,
+            fit: BoxFit.cover,
           ),
         ),
       ),

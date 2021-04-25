@@ -14,22 +14,31 @@ abstract class _DataBreed with Store {
   List<Breed> breeds = [];
   @observable
   bool isLoading = true;
+  @observable
+  bool isStatusOk = true;
 
   @action
   Future<void> loadBreed() async {
-    final response = await http.get(Uri.parse(_breedUrl));
-    Map<String, dynamic> body = json.decode(response.body);
-    Map<String, dynamic> data = body['message'];
+    isLoading = true;
+    try {
+      final response = await http.get(Uri.parse(_breedUrl));
+      Map<String, dynamic> body = json.decode(response.body);
+      Map<String, dynamic> data = body['message'];
 
-    if (data != null) {
-      data.forEach((key, value) {
-        breeds.add(Breed(name: key, subBreed: value));
-      });
+      if (data != null) {
+        data.forEach((key, value) {
+          breeds.add(Breed(name: key, subBreed: value));
+        });
+      }
+
+      isLoading = false;
+
+      print('Carregou raças');
+    } catch (e) {
+      print('Erro de conexão');
+      isStatusOk = false;
+      print(isStatusOk);
     }
-
-    isLoading = false;
-
-    print('Carregou raças');
     return Future.value();
   }
 }
